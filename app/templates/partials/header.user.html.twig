@@ -1,0 +1,11 @@
+<div class="flex">
+    {% if is_granted('ROLE_USER') %}
+        <div class="flex gap-2 items-center">
+            <p>Bonjour, {{ app.user.username }}</p>
+            <a href="{{ path("app_logout") }}"class="btn btn-outline small"> Se déconnecter</a>
+        </div>
+    {% else %}
+        <a href="{{ path("app_login") }}"class="btn"> Se connecter</a>
+    {% endif %}
+</div>
+

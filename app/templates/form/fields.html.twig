@@ -1,0 +1,21 @@
+
+
+
+{# Defintion de de chaque element d'un formulaire #}
+{% block form_row %}
+    <div class="labeled-input">
+        {{ form_label(form) }}
+        {{ form_widget(form) }}
+        {{ form_errors(form) }}
+    </div>
+{% endblock %}
+
+
+{# Defintion de la mise en forme des erreurs #}
+{% block form_errors %}
+    {% if errors|length > 0 %}
+        {% for error in errors %}
+            <p class="text-red-500 text-sm mt-1">{{ error.message }}</p>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

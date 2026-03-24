@@ -9,6 +9,7 @@ services:
     volumes:
       - ./app:/var/www/html
       - ./apache/default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./php/php.ini:/usr/local/etc/php/conf.d/uploads.ini
     depends_on:
       - database
 

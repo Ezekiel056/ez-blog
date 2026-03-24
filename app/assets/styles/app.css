@@ -104,6 +104,24 @@ textarea:disabled  {
     cursor: not-allowed;
 }
 
+/* Boutons de champs uplpoad*/
+input[type="file"]::file-selector-button {
+    background-color: var(--color-primary);
+    cursor: pointer;
+    color: #fff;
+    border-radius: var(--radius);
+    border: none;
+    padding: var(--space-sm);
+    margin-right: var(--space-base);
+
+
+}
+
+input[type="file"]:hover::file-selector-button {
+    background-color: var(--color-primary-light);
+}
+
+
 .labeled-input {
     @apply flex flex-col gap-2;
 }
@@ -132,6 +150,10 @@ textarea:disabled  {
 }
 
 
+
+.form-title {
+@apply mb-10 text-xl;
+}
 
 .btn {
     background-color: var(--color-primary);

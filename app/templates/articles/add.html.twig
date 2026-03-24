@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rédiger un nouvel article{% endblock %}
+
+{% block body %}
+
+
+<div class="bg-white p-10 shadow-2xl rounded-lg self-stretch" >
+    <h1 class="form-title">Rédigez un nouvel article</h1>
+    {{ form_start(addArticleForm) }}
+        {{ form_row(addArticleForm.title) }}
+        {{ form_row(addArticleForm.imageFile) }}
+        {{ form_row(addArticleForm.resume) }}
+        {{ form_row(addArticleForm.content) }}
+        <button type="submit" class="btn btn-primary">Ajouter l'article</button>
+    {{ form_end(addArticleForm) }}
+</div>
+
+{% endblock %}

@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ArticlesRepository::class)]
 class Articles
 {
+
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -47,12 +49,17 @@ class Articles
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\Column(length: 300)]
+    private ?string $resume = null;
+
 
 
     public function __construct()
     {
         $this->themes = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->setCreatedAt(new \DateTimeImmutable());
+
     }
 
     public function getId(): ?int
@@ -185,6 +192,18 @@ class Articles
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getResume(): ?string
+    {
+        return $this->resume;
+    }
+
+    public function setResume(string $resume): static
+    {
+        $this->resume = $resume;
 
         return $this;
     }

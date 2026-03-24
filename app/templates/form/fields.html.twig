@@ -2,6 +2,14 @@
 
 
 {# Defintion de de chaque element d'un formulaire #}
+
+{% use 'form_div_layout.html.twig' %}
+
+{% block form_start %}
+    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' flex flex-col gap-6 md:gap-10')|trim}) %}
+    {{ parent() }}
+{% endblock %}
+
 {% block form_row %}
     <div class="labeled-input">
         {{ form_label(form) }}

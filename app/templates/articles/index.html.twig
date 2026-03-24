@@ -7,7 +7,7 @@
 <h1 class="text-center text-3xl font-bold mb-10">
     Toute l'actu dev en 1 click();
 </h1>
-<div class="flex flex-col items-center">
+<div class="flex flex-col items-center gap-5">
     <div id="search-bar" class="rounded-3xl w-full py-2 px-3 flex gap-2 items-center border border-gray-200 bg-white ">
         <p>🔎</p>
         <input type="text" placeholder="Rechercher un article ..." class="search-bar-input w-full ">
@@ -26,7 +26,7 @@
 
     {% if is_granted('ROLE_REDACTOR') %}
         <div class="my-5 self-stretch md:self-end">
-            <button class="btn btn-primary large w-full">Rédiger un nouvel article</button>
+            <a class="btn btn-primary large w-full" href="{{ path("app_articles_add") }}">Rédiger un nouvel article</a>
         </div>
     {% endif %}
 
@@ -37,12 +37,10 @@
                 <div class="h-[200px] overflow-hidden">
                     <img class="object-contain -mt-10 object-center transition-transform duration-300 group-hover:scale-102" src="{{ asset('/images/articles/' ~ article.image) }}" alt="" height="150">
                 </div>
-                <article class="p-5">
+                <article class="flex flex-col gap-3 p-5">
                     <h2 class="text-2xl font-bold">{{ article.title }}</h2>
-                    <p class="text-sm text-gray-400 font-semibold">Ecrit par {{ article.getUser().username }}</p>
-                    <div class="article-content pt-5">
-                        <p>blabla</p>
-                    </div>
+                    <p class="text-sm text-gray-400">Ecrit par {{ article.getUser().username }} - Le {{ article.getCreatedAt() | date('d/m/y')}}</p>
+                    <p class="pt-5">{{ article.getResume() }}</p>
                 </article>
             </div>
         {% endfor %}

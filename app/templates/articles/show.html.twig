@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticlesController!{% endblock %}
+
+{% block body %}
+
+<div class="flex flex-col gap-5 rounded-3xl shadow border  border-none bg-white overflow-hidden">
+    <img src="{{ asset('/images/articles/' ~ article.image) }}" alt="logo-article"  height="200" class="h-[200px] object-cover">
+    <div class="article-content px-5 py-2">
+        <h1 class="font-bold text-3xl mb-3">{{ article.title }}</h1>
+        <p class="text-gray-500">Écrit par {{ article.getUser().username }} - Le {{ article.createdAt | date('d/m/Y') }}</p>
+        <div class="article-data">
+            {{ article.content  | raw}}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -6,10 +6,10 @@ use App\Entity\Articles;
 use App\Form\AddArticleType;
 use App\Repository\ArticlesRepository;
 use App\Repository\ThemesRepository;
-use ContainerOxEuhxC\getThemesRepositoryService;
 use Doctrine\ORM\EntityManagerInterface;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
+use League\CommonMark\CommonMarkConverter;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,6 +27,21 @@ final class ArticlesController extends AbstractController
             'articles' => $articles,
             'themes' => $themes
         ]);
+    }
+
+    #[Route('/articles/{id}', name: 'app_articles_show')]
+    public function show(Articles $article, ): Response
+    {
+
+        if ($article->getId() > 0) {
+            $converter = new CommonMarkConverter();
+            $article->setContent($converter->convert($article->getContent()));
+           return  $this->render('articles/show.html.twig', [
+                'article' => $article
+            ]);
+        }
+        $this->addFlash('error','L\'article demandé n\'existe pas');
+        return $this->redirectToRoute('app_home');
     }
 
     #[Route('/articles/add', name: 'app_articles_add')]
@@ -73,4 +88,6 @@ final class ArticlesController extends AbstractController
             'addArticleForm' => $form
         ]);
     }
+
+
 }

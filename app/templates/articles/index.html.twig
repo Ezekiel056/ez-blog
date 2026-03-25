@@ -11,8 +11,7 @@
 
     <div id="search-bar" class="rounded-2xl w-full py-2 px-3 flex gap-2 items-center border border-gray-200 bg-white ">
         <i class="fa-solid fa-magnifying-glass text-gray-500 -mt-0.5"></i>
-        <input type="text" placeholder="Rechercher un article ..." class="search-bar-input"  data-action="input->article-search#search" data-article-search-target="input">
-
+        <input type="text" placeholder="Rechercher un article ..." value="{{ query }}" class="search-bar-input"  data-action="input->article-search#search" data-article-search-target="input">
     </div>
 
     {% if is_granted('ROLE_REDACTOR') %}

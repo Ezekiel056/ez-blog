@@ -22,22 +22,30 @@ use Symfony\Component\Routing\Attribute\Route;
 final class ArticlesController extends AbstractController
 {
 
-    #[Route('', name: '')]
-    public function index(ArticlesRepository $articlesRepo, ThemesRepository $themesRepo): Response
+    #[Route('', name: '', methods: ['GET'])]
+    public function index(Request $request,ArticlesRepository $repo, ThemesRepository $themesRepo): Response
     {
+        $q = $request->query->get('q', '');
         $themes = $themesRepo->findAllUsedByArticles();
-        $articles = $articlesRepo->findBy([], ['created_at' => 'DESC']);
+
+        if ($q) {
+            $articles = $repo->findByTitle(urldecode($q));
+        } else {
+            $articles = $repo->findBy([], ['created_at' => 'DESC']);
+        }
+
         return $this->render('articles/index.html.twig', [
+            'query' => urldecode($q),
             'articles' => $articles,
             'themes' => $themes
         ]);
     }
 
-    #[Route('/search', name: '_search')]
+    #[Route('/search', name: '_search', methods: ['POST'])]
     public function search(Request $request, ArticlesRepository $repo): Response
     {
-        $q = $request->query->get('q', '');
-        $articles = $repo->findByTitle($q);
+        $q = $request->request->get('q', '');
+        $articles = $repo->findByTitle(urldecode($q));
         return $this->render('articles/partials/_articles.html.twig', ['articles' => $articles]);
     }
 

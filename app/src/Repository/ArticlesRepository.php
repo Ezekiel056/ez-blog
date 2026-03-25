@@ -21,6 +21,7 @@ class ArticlesRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('a')
             ->where('LOWER(a.title) LIKE LOWER(:q)')
             ->setParameter('q', '%' . $query . '%')
+            ->orderBy('a.created_at', 'DESC')
             ->getQuery()
             ->getResult();
     }

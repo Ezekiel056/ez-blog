@@ -1,3 +1,15 @@
-{% for article in articles %}
-   {% include 'articles/partials/_article.html.twig' %}
-{% endfor %}
+{% if articles is empty %}
+
+    <p class="col-span-full text-center py-16 text-gray-500 text-2xl">
+        Aucun article trouvé
+    </p>
+
+{% else %}
+
+    {% for article in articles %}
+        {% include 'articles/partials/_article.html.twig' %}
+    {% endfor %}
+
+
+{% endif %}
+

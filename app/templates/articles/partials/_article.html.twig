@@ -1,0 +1,11 @@
+<a class="group flex flex-col gap-5 rounded-xl shadow bg-white overflow-hidden
+            transition-[transform,box-shadow,translate] cursor-pointer hover:shadow-lg hover:-translate-y-0.5 text-black no-underline" href="{{ path('app_articles_show',{id:article.id}) }}" >
+    <div class="h-[200px] overflow-hidden">
+        <img class="object-contain -mt-10 object-center transition-transform duration-300 group-hover:scale-102" src="{{ asset('/images/articles/' ~ article.image) }}" alt="" height="150">
+    </div>
+    <article class="flex flex-col gap-3 p-5">
+        <h2 class="text-2xl font-bold">{{ article.title }}</h2>
+        <p class="text-sm text-gray-400">Ecrit par {{ article.getUser().username }} - Le {{ article.getCreatedAt() | date('d/m/y')}}</p>
+        <p class="pt-5">{{ article.getResume() }}</p>
+    </article>
+</a>

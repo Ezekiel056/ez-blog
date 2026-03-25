@@ -16,6 +16,15 @@ class ArticlesRepository extends ServiceEntityRepository
         parent::__construct($registry, Articles::class);
     }
 
+    public function findByTitle(string $query): ?array
+    {
+        return $this->createQueryBuilder('a')
+            ->where('LOWER(a.title) LIKE LOWER(:q)')
+            ->setParameter('q', '%' . $query . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Articles[] Returns an array of Articles objects
 //     */

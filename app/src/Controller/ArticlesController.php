@@ -16,12 +16,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('/articles', name: 'app_articles')]
+
+
 final class ArticlesController extends AbstractController
 {
-    #[Route('/', name: 'app_home')]
+
+    #[Route('', name: '')]
     public function index(ArticlesRepository $articlesRepo, ThemesRepository $themesRepo): Response
     {
-        $themes = $themesRepo->findAllUsedByArticles();;
+        $themes = $themesRepo->findAllUsedByArticles();
         $articles = $articlesRepo->findBy([], ['created_at' => 'DESC']);
         return $this->render('articles/index.html.twig', [
             'articles' => $articles,
@@ -29,22 +33,16 @@ final class ArticlesController extends AbstractController
         ]);
     }
 
-    #[Route('/articles/{id}', name: 'app_articles_show')]
-    public function show(Articles $article, ): Response
+    #[Route('/search', name: '_search')]
+    public function search(Request $request, ArticlesRepository $repo): Response
     {
-
-        if ($article->getId() > 0) {
-            $converter = new CommonMarkConverter();
-            $article->setContent($converter->convert($article->getContent()));
-           return  $this->render('articles/show.html.twig', [
-                'article' => $article
-            ]);
-        }
-        $this->addFlash('error','L\'article demandé n\'existe pas');
-        return $this->redirectToRoute('app_home');
+        $q = $request->query->get('q', '');
+        $articles = $repo->findByTitle($q);
+        return $this->render('articles/partials/_articles.html.twig', ['articles' => $articles]);
     }
 
-    #[Route('/articles/add', name: 'app_articles_add')]
+
+    #[Route('/add', name: '_add')]
     public function add(Request $request, EntityManagerInterface $em): Response
     {
         if (!$this->isGranted('ROLE_REDACTOR')) {
@@ -89,5 +87,21 @@ final class ArticlesController extends AbstractController
         ]);
     }
 
+
+
+    #[Route('/{id}', name: '_show')]
+    public function show(Articles $article, ): Response
+    {
+
+        if ($article->getId() > 0) {
+            $converter = new CommonMarkConverter();
+            $article->setContent($converter->convert($article->getContent()));
+            return  $this->render('articles/show.html.twig', [
+                'article' => $article
+            ]);
+        }
+        $this->addFlash('error','L\'article demandé n\'existe pas');
+        return $this->redirectToRoute('app_home');
+    }
 
 }

@@ -16,7 +16,7 @@
 
     {% if is_granted('ROLE_REDACTOR') %}
         <div class="my-5 self-stretch md:self-end">
-            <a class="btn btn-primary large w-full" href="{{ path("app_articles_add") }}">Rédiger un nouvel article</a>
+            <a class="btn btn-primary large w-full inline-block text-center" href="{{ path("app_articles_add") }}">Rédiger un nouvel article</a>
         </div>
     {% endif %}
 

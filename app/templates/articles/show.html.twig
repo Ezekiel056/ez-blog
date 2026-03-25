@@ -4,6 +4,7 @@
 
 {% block body %}
 
+<a href="{{ path('app_home') }}" class="mb-5"><i class="fa-solid fa-arrow-left"></i> Retour aux articles</a>
 <div class="flex flex-col gap-5 rounded-3xl shadow border  border-none bg-white overflow-hidden">
     <img src="{{ asset('/images/articles/' ~ article.image) }}" alt="logo-article"  height="200" class="h-[200px] object-cover">
     <div class="article-content px-5 py-2">

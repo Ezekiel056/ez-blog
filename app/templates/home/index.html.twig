@@ -17,9 +17,9 @@
 
     <div class="flex flex-col gap-2 border items-center p-5 rounded-2xl border-gray-200 w-full bg-white">
         <h2 class="text-center text-xl font-semibold">Les derniers articles ajoutés</h2>
-        <a class="link  text-lg text-center" href="{{ path("app_articles") }}">Voir tous les articles</a>
 
     </div>
+    <a class="text-lg self-end" href="{{ path("app_articles") }}">Voir tous les articles <i class="fa-solid fa-arrow-right"></i></a>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-5">
         {% for article in articles %}

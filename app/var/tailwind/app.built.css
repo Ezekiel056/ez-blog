@@ -291,6 +291,9 @@
   .gap-10 {
     gap: calc(var(--spacing) * 10);
   }
+  .self-end {
+    align-self: flex-end;
+  }
   .self-stretch {
     align-self: stretch;
   }
@@ -319,6 +322,9 @@
   }
   .border-gray-200 {
     border-color: var(--color-gray-200);
+  }
+  .bg-red-500 {
+    background-color: var(--color-red-500);
   }
   .bg-white {
     background-color: var(--color-white);
@@ -355,6 +361,12 @@
   }
   .text-center {
     text-align: center;
+  }
+  .text-end {
+    text-align: end;
+  }
+  .text-right {
+    text-align: right;
   }
   .text-2xl {
     font-size: var(--text-2xl);
